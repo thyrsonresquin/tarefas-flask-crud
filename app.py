@@ -32,6 +32,14 @@ def get_task(id):
         return jsonify(task.to_dict())
     else:
         return jsonify({"message": "Tarefa não encontrada"}), 404
+    
+'''
+@app.route('/user/<username>')
+def show_user_profile(username):
+    return f'Perfil do usuário: {username}'
+'''
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
