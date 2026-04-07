@@ -39,7 +39,17 @@ def show_user_profile(username):
     return f'Perfil do usuário: {username}'
 '''
 
-
+@app.route('/tasks/<int:id>', methods=['PUT'])
+def update_task(id):
+    data = request.get_json()
+    task = next((task for task in tasks if task.id == id), None)
+    if task:
+        task.title = data.get('title', task.title)
+        task.description = data.get('description', task.description)
+        task.completed = data.get('completed', task.completed)
+        return jsonify({"message": "Tarefa atualizada com sucesso"})
+    else:
+        return jsonify({"message": "Tarefa não encontrada"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
