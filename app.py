@@ -50,6 +50,16 @@ def update_task(id):
         return jsonify({"message": "Tarefa atualizada com sucesso"})
     else:
         return jsonify({"message": "Tarefa não encontrada"}), 404
+    
+@app.route('/tasks/<int:id>', methods=['DELETE'])
+def delete_task(id):
+    global tasks
+    task = next((task for task in tasks if task.id == id), None)
+    if task:
+        tasks = [t for t in tasks if t.id != id]
+        return jsonify({"message": "Tarefa deletada com sucesso"})
+    else:
+        return jsonify({"message": "Tarefa não encontrada"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
