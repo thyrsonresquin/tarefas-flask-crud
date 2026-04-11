@@ -24,3 +24,15 @@ def test_get_tasks():
     assert "total_tasks" in data
     assert isinstance(data["tasks"], list)
     assert data["total_tasks"] == len(data["tasks"])
+
+def test_get_task():
+    if tasks:
+        task_id = tasks[0]
+        response = requests.get(f"{BASE_URL}/tasks/{task_id}")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["id"] == task_id
+        assert data["title"] == "Nova tarefa de teste"
+        assert data["description"] == "Descrição da tarefa de teste"
+    else:
+        pytest.skip("Nenhuma tarefa criada para testar")
